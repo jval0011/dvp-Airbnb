@@ -17,10 +17,41 @@ p{
   font-size: 10px;
 }
 
-#pricePlot > img{
-  height: 100%;
+#controls {
+  /* Appearance */
+  background-color: #FF5A5F;
+  padding: 0 20px 20px 20px;
+  cursor: move;
+  /* Fade out while not hovering */
+  opacity: 0.65;
+  zoom: 0.9;
+  transition: opacity 500ms 1s;
+}
+#controls:hover {
+  /* Fade in while hovering */
+  opacity: 0.95;
+  transition-delay: 0;
 }
 
-#tab-5615-4 > div > div:nth-child(2) > h5:nth-child(1){
-  text-align: left;
+#timeselect{
+  /* Appearance */
+  background-color: #FF5A5F;
+  padding: 0 20px 20px 20px;
+  cursor: move;
+  /* Fade out while not hovering */
+  opacity: 0.65;
+  zoom: 0.9;
+  transition: opacity 500ms 1s;
 }
+
+#timeselect:hover {
+  /* Fade in while hovering */
+  opacity: 0.95;
+  transition-delay: 0;
+}
+
+
+
+
+
+

@@ -2,67 +2,50 @@
 shinyServer(function(input, output, session) {
   
   # Listings
-  output$unitmap <- renderLeaflet({ 
+  output$mymap <- renderLeaflet({ 
     req(input$listTime1)
     if(input$listTime1 == "list9"){
       mymap <- leaflet() %>% 
         addTiles() %>%
         addPolygons(data = area, color = "red", 
-                    label = ~paste0(neighbourhood),
+                    popup = ~paste0(neighbourhood, "<br/>", 
+                                    "Number of listings: ",
+                                    n_list9$n),
                     weight = 1,
                     highlightOptions = highlightOptions(color = "blue", 
                                                         bringToFront = TRUE,
-                                                        weight = 2)) %>%
-        addCircleMarkers(lat = list9$latitude, 
-                   lng = list9$longitude, 
-                   label = list9$name,
-                   color = "blue",
+                                                        weight = 4)) %>%
+        addCircleMarkers(lat = list9$latitude,
+                         lng = list9$longitude,
+                         color = "blue",
+                         label = paste0(list9$name, ", ",
+                                   list9$room_type, ", ",
+                                   list9$price, ", ",
+                                   list9$neighbourhood_cleansed ,", ",
+                                   list9$reviews_per_month),
                    clusterOptions = markerClusterOptions())
     } else if(input$listTime1 == "list6"){
       mymap <- leaflet() %>% 
         addTiles() %>%
         addPolygons(data = area, color = "red", 
-                    label = ~paste0(neighbourhood),
+                    popup = ~paste0(neighbourhood, "<br/>",
+                                    "Number of listings: ",
+                                    n_list6$n),
                     weight = 1,
                     highlightOptions = highlightOptions(color = "blue", 
                                                         bringToFront = TRUE,
-                                                        weight = 2)) %>%
+                                                        weight = 4)) %>%
         addCircleMarkers(lat = list6$latitude, 
                          lng = list6$longitude,
                          color = "blue",
+                         label = paste0(list6$name,", ",
+                                         list6$room_type, ", ",
+                                         list6$price, ", ",
+                                         list6$neighbourhood_cleansed,", ",
+                                         list6$reviews_per_month),
                          clusterOptions = markerClusterOptions())
     }
     })
-  
-  output$mymap <- renderLeaflet({ 
-    req(input$listTime)
-    if(input$listTime == "list9"){
-      mymap <- leaflet() %>% 
-        addTiles() %>%
-        addPolygons(data = area, color = "red", 
-                    label = ~paste0(neighbourhood),
-                    weight = 1,
-                    highlightOptions = highlightOptions(color = "blue", 
-                                                        bringToFront = TRUE,
-                                                        weight = 2)) %>%
-        addCircleMarkers(lat = list9$latitude, 
-                         lng = list9$longitude, 
-                         label = list9$name,
-                         clusterOptions = markerClusterOptions())
-    } else if(input$listTime == "list6"){
-      mymap <- leaflet() %>% 
-        addTiles() %>%
-        addPolygons(data = area, color = "red", 
-                    label = ~paste0(neighbourhood),
-                    weight = 1,
-                    highlightOptions = highlightOptions(color = "blue", 
-                                                        bringToFront = TRUE,
-                                                        weight = 2)) %>%
-        addCircles(lat = list6$latitude, 
-                   lng = list6$longitude, 
-                   color = "green")
-    }
-  })
   
   # Type
   

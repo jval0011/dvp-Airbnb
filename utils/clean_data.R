@@ -40,6 +40,15 @@ room9 <- list9 %>%
   group_by(room_type) %>%
   count()
 
+# Count number of listings per neighbourhood
+n_list9 <- list9 %>%
+  group_by(neighbourhood_cleansed) %>%
+  count()
+
+n_list6 <- list6 %>%
+  group_by(neighbourhood_cleansed) %>%
+  count()
+
 # Cleaning and transforming the comments in the reviews
 text_df <- tibble(line = seq_along(rev9$comments), text = rev9$comments)
 
