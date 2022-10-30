@@ -2,6 +2,38 @@
 shinyServer(function(input, output, session) {
   
   # Listings
+  output$unitmap <- renderLeaflet({ 
+    req(input$listTime1)
+    if(input$listTime1 == "list9"){
+      mymap <- leaflet() %>% 
+        addTiles() %>%
+        addPolygons(data = area, color = "red", 
+                    label = ~paste0(neighbourhood),
+                    weight = 1,
+                    highlightOptions = highlightOptions(color = "blue", 
+                                                        bringToFront = TRUE,
+                                                        weight = 2)) %>%
+        addCircleMarkers(lat = list9$latitude, 
+                   lng = list9$longitude, 
+                   label = list9$name,
+                   color = "blue",
+                   clusterOptions = markerClusterOptions())
+    } else if(input$listTime1 == "list6"){
+      mymap <- leaflet() %>% 
+        addTiles() %>%
+        addPolygons(data = area, color = "red", 
+                    label = ~paste0(neighbourhood),
+                    weight = 1,
+                    highlightOptions = highlightOptions(color = "blue", 
+                                                        bringToFront = TRUE,
+                                                        weight = 2)) %>%
+        addCircleMarkers(lat = list6$latitude, 
+                         lng = list6$longitude,
+                         color = "blue",
+                         clusterOptions = markerClusterOptions())
+    }
+    })
+  
   output$mymap <- renderLeaflet({ 
     req(input$listTime)
     if(input$listTime == "list9"){
@@ -13,10 +45,10 @@ shinyServer(function(input, output, session) {
                     highlightOptions = highlightOptions(color = "blue", 
                                                         bringToFront = TRUE,
                                                         weight = 2)) %>%
-        addCircles(lat = list9$latitude, 
-                   lng = list9$longitude, 
-                   label = list9$name,
-                   color = "blue")
+        addCircleMarkers(lat = list9$latitude, 
+                         lng = list9$longitude, 
+                         label = list9$name,
+                         clusterOptions = markerClusterOptions())
     } else if(input$listTime == "list6"){
       mymap <- leaflet() %>% 
         addTiles() %>%
@@ -30,7 +62,7 @@ shinyServer(function(input, output, session) {
                    lng = list6$longitude, 
                    color = "green")
     }
-    })
+  })
   
   # Type
   
@@ -66,6 +98,16 @@ shinyServer(function(input, output, session) {
     
   })
   
+  output$total9 <- renderText({
+    total9 <- sum(room9$n)
+    paste0("Total Number of listings: ",total9)
+  })
+  
+  output$total6 <- renderText({
+    total6 <- sum(room6$n)
+    paste0("Total Number of listings: ",total6)
+  })
+  
   # Pricing
   output$pricePlot <- renderPlot({
     cal1 %>%
@@ -75,7 +117,12 @@ shinyServer(function(input, output, session) {
       geom_boxplot(width = 0.05) +
       scale_y_log10(labels = label_dollar()) +
       theme(legend.position = "none") +
-      labs(x = "Date")
+      labs(x = "Date") +
+      annotate("text", label = "$145.80", 
+               x ="2021-09-08", y = 200, colour = "white") +
+      annotate("text", label = "$201.30", 
+               x ="2022-06-06", y = 280, colour = "white")
+      
   })
   
   # Reviews
@@ -89,5 +136,3 @@ shinyServer(function(input, output, session) {
       wordcloud2(negative, color = input$color)}
   })
 })
-
-

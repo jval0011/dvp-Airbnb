@@ -1,0 +1,26 @@
+h4{
+  text-align: center;
+}
+
+h5{
+  text-align: center;
+}
+
+p{
+  text-align: center;
+}
+
+#cite {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 10px;
+}
+
+#pricePlot > img{
+  height: 100%;
+}
+
+#tab-5615-4 > div > div:nth-child(2) > h5:nth-child(1){
+  text-align: left;
+}
